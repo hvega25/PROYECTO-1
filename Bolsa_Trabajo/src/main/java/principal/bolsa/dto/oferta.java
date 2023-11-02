@@ -13,6 +13,7 @@ public class oferta {
 	@Id                  //jakarta.persistence.Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
+	
 	private String nombre;
 	private String descripcion;
 	private String horario;
@@ -25,10 +26,10 @@ public class oferta {
 		
 	}
 
-	public oferta(long id, String nombre, String descripcion, String horario, String puesto, String jornada,
+	public oferta( String nombre, String descripcion, String horario, String puesto, String jornada,
 			String fecha) {
 		super();
-		this.id = id;
+		
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.horario = horario;
