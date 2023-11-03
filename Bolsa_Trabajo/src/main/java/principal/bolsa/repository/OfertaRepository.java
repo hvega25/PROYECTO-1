@@ -10,8 +10,6 @@ import principal.bolsa.dto.oferta;
 public interface OfertaRepository extends JpaRepository<oferta, Long>{
 	
 	public List<oferta> findAll();
-
 	
-
 
 }

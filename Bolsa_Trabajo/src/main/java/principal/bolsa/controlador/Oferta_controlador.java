@@ -24,18 +24,20 @@ import principal.bolsa.repository.OfertaRepository;
 @RequestMapping("/oferta")
 public class Oferta_controlador {
 	
-	@Autowired 
-	OfertaRepository ofertaRepositorio ; 
+	@Autowired  
+	private OfertaRepository ofertaRepositorio ; 
 	
 	@GetMapping("/consultar")
     public List<oferta> getAllOfertas() {
         return ofertaRepositorio.findAll();
     }
     
-//    @PostMapping("/crear_oferta")
-//    public ResponseEntity<?> crearOferta(@RequestBody oferta nuevaOferta) {
-//    	return ofertaRepositorio.save(nuevaOferta);
-//    }
+    @PostMapping("/agregar")
+    public oferta agregarOferta(@RequestBody oferta nuevaOferta) {
+        // Guardar la nueva oferta en la base de datos
+        oferta ofertaGuardada = ofertaRepositorio.save(nuevaOferta);
+        return ofertaGuardada;
+    }
     
     //Eliminar por id
     @DeleteMapping("/eliminar/{ofertaId}")
