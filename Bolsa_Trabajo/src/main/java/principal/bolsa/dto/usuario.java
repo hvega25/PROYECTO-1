@@ -9,9 +9,10 @@ import jakarta.persistence.Id;
 public class usuario {
 
 	@Id                  //jakarta.persistence.Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
+	
 	private String nombre;
 	private String apellido;
 	private int edad;

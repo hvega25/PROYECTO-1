@@ -6,12 +6,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
+
 public class oferta {
 	 
 	//variables de la clase oferta
 	
 	@Id                  //jakarta.persistence.Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
 	private String nombre;
@@ -26,10 +27,11 @@ public class oferta {
 		
 	}
 
-	public oferta( String nombre, String descripcion, String horario, String puesto, String jornada,
+	
+	public oferta(long id, String nombre, String descripcion, String horario, String puesto, String jornada,
 			String fecha) {
 		super();
-		
+		this.id = id;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.horario = horario;
@@ -37,6 +39,7 @@ public class oferta {
 		this.jornada = jornada;
 		this.fecha = fecha;
 	}
+
 
 	public long getId() {
 		return id;
@@ -93,7 +96,7 @@ public class oferta {
 	public void setFecha(String fecha) {
 		this.fecha = fecha;
 	}
-
+ 
 	@Override
 	public String toString() {
 		return "oferta [id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", horario=" + horario
