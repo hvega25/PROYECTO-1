@@ -13,7 +13,7 @@ public class empresa {
 	private long id;
 	
 	private String nombre;
-	private String direccion;
+	private String direccion; 
 	private String telefono;
 	private String correo;
 	
@@ -28,7 +28,7 @@ public class empresa {
 		this.nombre = nombre;
 		this.direccion = direccion;
 		this.telefono = telefono;
-		this.correo = correo;
+		this.correo = correo; 
 	}
 
 	public long getId() {

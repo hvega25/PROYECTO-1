@@ -22,14 +22,14 @@ import principal.bolsa.repository.OfertaRepository;
 
 @RestController
 @RequestMapping("/oferta")
-public class Oferta_controlador {
+public class Oferta_controlador { 
 	
-	@Autowired  
+	@Autowired   
 	private OfertaRepository ofertaRepositorio ; 
 	
 	@GetMapping("/consultar")
     public List<oferta> getAllOfertas() {
-        return ofertaRepositorio.findAll();
+        return ofertaRepositorio.findAll(); 
     }
     
     @PostMapping("/agregar")
@@ -38,7 +38,7 @@ public class Oferta_controlador {
         oferta ofertaGuardada = ofertaRepositorio.save(nuevaOferta);
         return ofertaGuardada;
     }
-    
+     
     //Eliminar por id
     @DeleteMapping("/eliminar/{ofertaId}")
     public ResponseEntity<?> eliminarOfertaPorId(@PathVariable Long ofertaId) {
