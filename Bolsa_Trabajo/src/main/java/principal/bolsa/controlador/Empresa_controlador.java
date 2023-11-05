@@ -3,6 +3,8 @@ package principal.bolsa.controlador;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,5 +42,12 @@ public class Empresa_controlador {
 		empresa empresaGuardada = empresarepositorio.save(nuevaEmpresa);
 		return empresaGuardada;
 	}
+	
+    //Eliminar por id
+    @DeleteMapping("/eliminar/{empresaId}")
+    public ResponseEntity<?> eliminarEmpresaPorId(@PathVariable Long empresaId) {
+    	empresarepositorio.deleteById(empresaId);
+        return ResponseEntity.ok("Empresa eliminada correctamente");
+    }
 
 }
