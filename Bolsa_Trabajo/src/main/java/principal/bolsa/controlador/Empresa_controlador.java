@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -50,4 +51,31 @@ public class Empresa_controlador {
         return ResponseEntity.ok("Empresa eliminada correctamente");
     }
 
+	//Modificar datos por id
+	@PutMapping("/actualizar/{id}")
+	public empresa actualizarEmpresa(@PathVariable Long id, @RequestBody empresa empresaActualizada){
+		empresa empresaExiste = empresarepositorio.findById(id).orElse(null);
+		if (empresaExiste == null) {
+			return null;
+		}
+
+		if (empresaActualizada.getNombre()!=null) {
+			empresaExiste.setNombre(empresaActualizada.getNombre());
+		}
+		
+		if (empresaActualizada.getDireccion() !=null) {
+			empresaExiste.setDireccion(empresaActualizada.getDireccion());
+		}
+
+		if (empresaActualizada.getTelefono()!=null) {
+			empresaExiste.setTelefono(empresaActualizada.getTelefono());
+		}
+
+		if (empresaActualizada.getCorreo()!=null) {
+			empresaExiste.setCorreo(empresaActualizada.getCorreo());
+		}
+
+		empresarepositorio.save(empresaExiste);
+		return empresaExiste;
+	}
 }
