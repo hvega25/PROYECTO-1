@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import principal.bolsa.dto.Empresa;
+import principal.bolsa.dto.Oferta;
 import principal.bolsa.repository.EmpresaRepository;
 
 @RestController
@@ -28,6 +29,13 @@ public class Empresa_controlador {
 	@GetMapping("/cosultarEmpresa/{id}")
 	Empresa consulta(@PathVariable Long id) {
 		return empresarepositorio.findById(id).orElseThrow();
+	}
+	
+	
+	@GetMapping("/{id}/ofertas")
+	public List<Oferta> getOfertasByEmpresaId(@PathVariable Long id) {
+	    Empresa empresa = empresarepositorio.findById(id).orElseThrow();
+	    return empresa.getOfertas();
 	}
 
 	// método para consultar todos los datos de la base de datos
@@ -53,8 +61,8 @@ public class Empresa_controlador {
 
 	//Modificar datos por id
 	@PutMapping("/actualizar/{id}")
-	public empresa actualizarEmpresa(@PathVariable Long id, @RequestBody empresa empresaActualizada){
-		empresa empresaExiste = empresarepositorio.findById(id).orElse(null);
+	public Empresa actualizarEmpresa(@PathVariable Long id, @RequestBody Empresa empresaActualizada){
+		Empresa empresaExiste = empresarepositorio.findById(id).orElse(null);
 		if (empresaExiste == null) {
 			return null;
 		}
