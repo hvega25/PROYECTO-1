@@ -4,10 +4,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 
-public class oferta {
+public class Oferta {
 	 
 	//variables de la clase oferta
 	
@@ -22,13 +24,18 @@ public class oferta {
 	private String jornada;
 	private String fecha;
 
+    //Relacion many to one	
+    @ManyToOne
+    @JoinColumn(name = "empresa_id")
+    private Empresa empresa;
+    
 	//constructores
-	public oferta() {
+	public Oferta() {
 		
 	}
 
 	
-	public oferta(long id, String nombre, String descripcion, String horario, String puesto, String jornada,
+	public Oferta(long id, String nombre, String descripcion, String horario, String puesto, String jornada,
 			String fecha) {
 		super();
 		this.id = id;

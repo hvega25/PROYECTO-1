@@ -1,30 +1,39 @@
 package principal.bolsa.dto;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
-public class empresa {
+public class Empresa {
 
 	@Id                  //jakarta.persistence.Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private long empresa_id;
 	
 	private String nombre;
 	private String direccion; 
 	private String telefono;
 	private String correo;
 	
+    @OneToMany(mappedBy = "empresa")
+    private List<Oferta> ofertas;
 	
-	public empresa() {
+    public List<Oferta> getOfertas() {
+        return ofertas;
+    }
+	
+	public Empresa() {
 		
 	}
 	
-	public empresa(long id, String nombre, String direccion, String telefono, String correo) {
+	public Empresa(long id, String nombre, String direccion, String telefono, String correo) {
 		super();
-		this.id = id;
+		this.empresa_id = id;
 		this.nombre = nombre;
 		this.direccion = direccion;
 		this.telefono = telefono;
@@ -32,11 +41,11 @@ public class empresa {
 	}
 
 	public long getId() {
-		return id;
+		return empresa_id;
 	}
 
 	public void setId(long id) {
-		this.id = id;
+		this.empresa_id = id;
 	}
 
 	public String getNombre() {
@@ -73,7 +82,7 @@ public class empresa {
 
 	@Override
 	public String toString() {
-		return "empresa [id=" + id + ", nombre=" + nombre + ", direccion=" + direccion + ", telefono=" + telefono
+		return "empresa [id=" + empresa_id + ", nombre=" + nombre + ", direccion=" + direccion + ", telefono=" + telefono
 				+ ", correo=" + correo + "]";
 	}
 	
