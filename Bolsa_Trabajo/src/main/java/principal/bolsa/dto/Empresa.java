@@ -1,28 +1,35 @@
 package principal.bolsa.dto;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
-public class empresa {
+@Table(name="empresa")
+public class Empresa {
 
-	@Id                  //jakarta.persistence.Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id                  
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "empresa_id")
 	private long id;
 	
+//	@Column(name = "nombre")
 	private String nombre;
+//	@Column(name = "direccion")
 	private String direccion; 
+//	@Column(name = "telefono")
 	private String telefono;
+//	@Column(name = "correo")
 	private String correo;
 	
 	
-	public empresa() {
+	public Empresa() {
 		
 	}
 	
-	public empresa(long id, String nombre, String direccion, String telefono, String correo) {
+	public Empresa(long id, String nombre, String direccion, String telefono, String correo) {
 		super();
 		this.id = id;
 		this.nombre = nombre;

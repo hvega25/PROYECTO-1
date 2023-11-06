@@ -1,34 +1,50 @@
 package principal.bolsa.dto;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
-
-public class oferta {
+@Table(name="oferta")
+public class Oferta {
 	 
 	//variables de la clase oferta
 	
-	@Id                  //jakarta.persistence.Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id                  
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "oferta_id")
 	private long id;
 	
+//	@Column(name = "nombre")
 	private String nombre;
+//	@Column(name = "descripcion")
 	private String descripcion;
+//	@Column(name = "horario")
 	private String horario;
+//	@Column(name = "puesto")
 	private String puesto;
+//	@Column(name = "jornada")
 	private String jornada;
+//	@Column(name = "fecha")
 	private String fecha;
 
 	//constructores
-	public oferta() {
+	public Oferta() {
 		
 	}
 
 	
-	public oferta(long id, String nombre, String descripcion, String horario, String puesto, String jornada,
+	public Oferta(long id, String nombre, String descripcion, String horario, String puesto, String jornada,
 			String fecha) {
 		super();
 		this.id = id;
@@ -102,6 +118,12 @@ public class oferta {
 		return "oferta [id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", horario=" + horario
 				+ ", puesto=" + puesto + ", jornada=" + jornada + ", fecha=" + fecha + "]";
 	}
+	
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "empresa", nullable = false)
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	@JsonIgnore
+	private Empresa empresa;
 	
 
 

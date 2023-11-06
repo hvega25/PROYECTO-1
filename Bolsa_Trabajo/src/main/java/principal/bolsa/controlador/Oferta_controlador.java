@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import principal.bolsa.dto.oferta;
+import principal.bolsa.dto.Oferta;
 import principal.bolsa.repository.OfertaRepository;
 
 
@@ -28,14 +28,14 @@ public class Oferta_controlador {
 	private OfertaRepository ofertaRepositorio ; 
 	
 	@GetMapping("/consultar")
-    public List<oferta> getAllOfertas() {
+    public List<Oferta> getAllOfertas() {
         return ofertaRepositorio.findAll(); 
     }
     
     @PostMapping("/agregar")
-    public oferta agregarOferta(@RequestBody oferta nuevaOferta) {
+    public Oferta agregarOferta(@RequestBody Oferta nuevaOferta) {
         // Guardar la nueva oferta en la base de datos
-        oferta ofertaGuardada = ofertaRepositorio.save(nuevaOferta);
+        Oferta ofertaGuardada = ofertaRepositorio.save(nuevaOferta);
         return ofertaGuardada;
     }
      
