@@ -1,4 +1,4 @@
-package principal.bolsa.dto;
+package principal.bolsa.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -25,10 +25,9 @@ public class Oferta {
 	private String fecha;
 
     //Relacion many to one	
-    @ManyToOne
+	@ManyToOne
     @JoinColumn(name = "empresa_id")
     private Empresa empresa;
-    
 	//constructores
 	public Oferta() {
 		

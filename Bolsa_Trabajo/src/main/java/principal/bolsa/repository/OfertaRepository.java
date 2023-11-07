@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import principal.bolsa.dto.Oferta;
+import principal.bolsa.entity.Oferta;
 
 public interface OfertaRepository extends JpaRepository<Oferta, Long>{
 	
