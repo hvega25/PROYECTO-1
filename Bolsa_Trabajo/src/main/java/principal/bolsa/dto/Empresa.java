@@ -2,6 +2,8 @@ package principal.bolsa.dto;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,7 +22,8 @@ public class Empresa {
 	private String telefono;
 	private String correo;
 	
-    @OneToMany(mappedBy = "empresa")
+    @OneToMany(mappedBy = "empresa") //fetch = FetchType.EAGER
+    @JsonIgnore
     private List<Oferta> ofertas;
 	
     public List<Oferta> getOfertas() {

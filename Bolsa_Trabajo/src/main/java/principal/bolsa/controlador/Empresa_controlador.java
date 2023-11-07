@@ -1,8 +1,10 @@
 package principal.bolsa.controlador;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,53 +18,56 @@ import org.springframework.web.bind.annotation.RestController;
 import principal.bolsa.dto.Empresa;
 import principal.bolsa.dto.Oferta;
 import principal.bolsa.repository.EmpresaRepository;
+import principal.bolsa.repository.OfertaRepository;
 
 @RestController
 @RequestMapping("/empresa")
 public class Empresa_controlador {
 
 	@Autowired
-	private EmpresaRepository empresarepositorio;
+	private EmpresaRepository empresaRepositorio;
+	
+	@Autowired
+	private OfertaRepository ofertaRepositorio;
 
 	// método para consultar solo un elemento de la base de datos
 
-	@GetMapping("/cosultarEmpresa/{id}")
+	@GetMapping("/consultarEmpresa/{id}")
 	Empresa consulta(@PathVariable Long id) {
-		return empresarepositorio.findById(id).orElseThrow();
+		return empresaRepositorio.findById(id).orElseThrow();
 	}
 	
+	//Metodo para mirar ofertas segun la empresa
+
 	
-	@GetMapping("/{id}/ofertas")
-	public List<Oferta> getOfertasByEmpresaId(@PathVariable Long id) {
-	    Empresa empresa = empresarepositorio.findById(id).orElseThrow();
-	    return empresa.getOfertas();
-	}
+	
+    //Eliminar por id
+    @DeleteMapping("/eliminar/{empresaId}")
+    public ResponseEntity<?> eliminarEmpresaPorId(@PathVariable Long empresaId) {
+    	empresaRepositorio.deleteById(empresaId);
+        return ResponseEntity.ok("Empresa eliminada correctamente");
+    }
+	
 
 	// método para consultar todos los datos de la base de datos
 	@GetMapping("/consultar")
 	public List<Empresa> getAllEmpresas() {
-		return empresarepositorio.findAll();
+		return empresaRepositorio.findAll();
 	} 
 
 //método para agregar a la base de datos
 	@PostMapping("/agregar")
 	public Empresa agregarEmpresa(@RequestBody Empresa nuevaEmpresa) {
 		// Guardar la nueva oferta en la base de datos
-		Empresa empresaGuardada = empresarepositorio.save(nuevaEmpresa);
+		Empresa empresaGuardada = empresaRepositorio.save(nuevaEmpresa);
 		return empresaGuardada;
 	}
 	
-    //Eliminar por id
-    @DeleteMapping("/eliminar/{empresaId}")
-    public ResponseEntity<?> eliminarEmpresaPorId(@PathVariable Long empresaId) {
-    	empresarepositorio.deleteById(empresaId);
-        return ResponseEntity.ok("Empresa eliminada correctamente");
-    }
 
 	//Modificar datos por id
 	@PutMapping("/actualizar/{id}")
 	public Empresa actualizarEmpresa(@PathVariable Long id, @RequestBody Empresa empresaActualizada){
-		Empresa empresaExiste = empresarepositorio.findById(id).orElse(null);
+		Empresa empresaExiste = empresaRepositorio.findById(id).orElse(null);
 		if (empresaExiste == null) {
 			return null;
 		}
@@ -83,7 +88,7 @@ public class Empresa_controlador {
 			empresaExiste.setCorreo(empresaActualizada.getCorreo());
 		}
 
-		empresarepositorio.save(empresaExiste);
+		empresaRepositorio.save(empresaExiste);
 		return empresaExiste;
 	}
 }

@@ -11,5 +11,5 @@ public interface OfertaRepository extends JpaRepository<Oferta, Long>{
 	
 	public List<Oferta> findAll();
 	
-
+	
 }
