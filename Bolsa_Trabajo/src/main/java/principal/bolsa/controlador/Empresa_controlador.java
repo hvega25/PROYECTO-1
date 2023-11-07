@@ -28,7 +28,7 @@ public class Empresa_controlador {
 	private EmpresaRepository empresaRepositorio;
 	
 	@Autowired
-	private OfertaRepository ofertaRepository;
+	private OfertaRepository ofertaRepositorio;
 
 	// método para consultar solo un elemento de la base de datos
 
@@ -38,35 +38,15 @@ public class Empresa_controlador {
 	}
 	
 	//Metodo para mirar ofertas segun la empresa
-	@GetMapping("/{id}/ofertas")
-	public List<Oferta> getOfertasByEmpresaId(@PathVariable Long id) {
-	    Empresa empresa = empresaRepositorio.findById(id).orElseThrow();
-	    return empresa.getOfertas();
-	}
-	
-	//Metodo para eliminar las ofertas asociadas a una empresa
-	@DeleteMapping("/eliminar/{ofertaId}")
-	public ResponseEntity<?> eliminarOfertaPorId(@PathVariable Long ofertaId) {
-	    // Buscar la oferta por su ID
-	    Optional<Oferta> oferta = ofertaRepository.findById(ofertaId);
 
-	    if (oferta.isPresent()) {
-	        // Si la oferta existe, eliminarla
-	        ofertaRepository.deleteById(ofertaId);
-	        return ResponseEntity.ok("Oferta eliminada correctamente");
-	    } else {
-	        // Si la oferta no existe, devolver una respuesta de error
-	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Oferta no encontrada");
-	    }
-	}
 	
 	
-//    //Eliminar por id
-//    @DeleteMapping("/eliminar/{empresaId}")
-//    public ResponseEntity<?> eliminarEmpresaPorId(@PathVariable Long empresaId) {
-//    	empresarepositorio.deleteById(empresaId);
-//        return ResponseEntity.ok("Empresa eliminada correctamente");
-//    }
+    //Eliminar por id
+    @DeleteMapping("/eliminar/{empresaId}")
+    public ResponseEntity<?> eliminarEmpresaPorId(@PathVariable Long empresaId) {
+    	empresaRepositorio.deleteById(empresaId);
+        return ResponseEntity.ok("Empresa eliminada correctamente");
+    }
 	
 
 	// método para consultar todos los datos de la base de datos
