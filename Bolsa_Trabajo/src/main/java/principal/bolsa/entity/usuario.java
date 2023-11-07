@@ -1,4 +1,4 @@
-package principal.bolsa.dto;
+package principal.bolsa.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
