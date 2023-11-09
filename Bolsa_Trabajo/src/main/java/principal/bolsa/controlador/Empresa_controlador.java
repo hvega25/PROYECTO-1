@@ -32,14 +32,14 @@ public class Empresa_controlador {
 
 	// Método para recuperar los datos de una empresa con su id
 	@GetMapping("/consultarEmpresa/{id}")
-	Empresa consulta(@PathVariable Long id) {
-		return empresaRepositorio.findById(id).orElseThrow();
+	AdminDTO consulta(@PathVariable Long id) {
+		return empresaRepositorio.obtenerEmpresa(id);
 	}
 
 	// Método que consulta todas las empresas que existen
 	@GetMapping("/consultarTodoSinOfertas")
 	public List<AdminDTO> getAllEmpresasWithoutOfertas() {
-        return empresaRepositorio.ObtenerEmpresa();
+        return empresaRepositorio.ObtenerEmpresa(); 
     }
 
 	// método para agregar a la base de datos

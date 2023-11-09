@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,25 +36,51 @@ public class Admin_Controlador {
 		return empresaRepositorio.findAll();
 	}
 
-	//Método que obtiene por id de una empresa las ofertas
-	@GetMapping("/{id}/ofertas")
+	// Método que obtiene por id de una empresa las ofertas
+	@GetMapping("/empresaID/{id}/ofertas")
 	public List<Oferta> getOfertasByEmpresaId(@PathVariable Long id) {
 		Empresa empresa = empresaRepositorio.findById(id).orElseThrow();
 		return empresa.getOfertas();
 	}
 
-	// Metodo para eliminar las ofertas asociadas a una empresa
-	@DeleteMapping("/eliminar/{ofertaId}")
-	public ResponseEntity<?> eliminarOfertaPorId(@PathVariable Long ofertaId) {
-		// Buscar la oferta por su ID
-		Optional<Oferta> oferta = ofertaRepositorio.findById(ofertaId);
-
-		if (oferta.isPresent()) {
-			ofertaRepositorio.deleteById(ofertaId);
-			return ResponseEntity.ok("Oferta eliminada correctamente");
-		} else {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Oferta no encontrada");
+	//Método para actualizar una oferta 
+	@PutMapping("/actualizarOferta/empresaID/{empresaId}/ofertaID/{ofertaId}")
+	public Oferta editarOferta(@PathVariable Long empresaId, @PathVariable Long ofertaId,
+			@RequestBody Oferta ofertaActualizada) {
+		Empresa empresa = empresaRepositorio.findById(empresaId).orElse(null);
+		if (empresa == null) {
+			return null;
 		}
+
+		Oferta oferta = ofertaRepositorio.findById(ofertaId).orElse(null);
+		if (oferta == null) {
+			return null;
+		}
+
+		if (ofertaActualizada.getNombre() != null) {
+			oferta.setNombre(ofertaActualizada.getNombre());
+		}
+		if (ofertaActualizada.getDescripcion() != null) {
+			oferta.setDescripcion(ofertaActualizada.getDescripcion());
+		}
+		if (ofertaActualizada.getFecha() != null) {
+			oferta.setFecha(ofertaActualizada.getFecha());
+		}
+		if (ofertaActualizada.getHorario() != null) {
+			oferta.setHorario(ofertaActualizada.getHorario());
+		}
+		if (ofertaActualizada.getJornada() != null) {
+			oferta.setJornada(ofertaActualizada.getJornada());
+		}
+		if (ofertaActualizada.getPuesto() != null) {
+			oferta.setPuesto(ofertaActualizada.getPuesto());
+		}
+
+		ofertaRepositorio.save(oferta);
+
+		return oferta;
 	}
+	
+
 
 }
