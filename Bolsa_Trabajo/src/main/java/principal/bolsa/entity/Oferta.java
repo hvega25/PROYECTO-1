@@ -114,6 +114,12 @@ public class Oferta {
 		return "oferta [id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", horario=" + horario
 				+ ", puesto=" + puesto + ", jornada=" + jornada + ", fecha=" + fecha + "]";
 	}
+
+
+	public Empresa getEmpresa() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 
 

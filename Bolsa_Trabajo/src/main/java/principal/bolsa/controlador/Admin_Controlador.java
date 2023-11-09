@@ -1,16 +1,14 @@
 package principal.bolsa.controlador;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.kafka.KafkaProperties.Admin;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -35,8 +33,10 @@ public class Admin_Controlador {
 		return empresaRepositorio.findAll();
 	}
 
+
 	//Método que obtiene por id de una empresa las ofertas
 	@GetMapping("empresaID/{id}/ofertas")
+
 	public List<Oferta> getOfertasByEmpresaId(@PathVariable Long id) {
 		Empresa empresa = empresaRepositorio.findById(id).orElseThrow();
 		return empresa.getOfertas();
@@ -59,8 +59,6 @@ public class Admin_Controlador {
 
 	    // Eliminar la oferta de la lista de ofertas de la empresa
 	    empresa.getOfertas().remove(oferta);
-
-	    // Establecer la empresa de la oferta a null
 	    oferta.setEmpresa(null);
 
 	    // Guardar la empresa y la oferta con las listas actualizadas
@@ -68,7 +66,10 @@ public class Admin_Controlador {
 	    ofertaRepositorio.save(oferta);
 
 	    return ResponseEntity.ok("Oferta eliminada correctamente de la empresa");
+
 	}
+	
+
 
 
 

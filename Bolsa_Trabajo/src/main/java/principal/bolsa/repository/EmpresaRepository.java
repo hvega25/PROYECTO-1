@@ -13,6 +13,9 @@ public interface EmpresaRepository extends JpaRepository<Empresa, Long> {
 
 	@Query("SELECT new principal.bolsa.dto.AdminDTO(e.nombre, e.direccion, e.telefono, e.correo) FROM Empresa e")
 	public List<AdminDTO> ObtenerEmpresa();
+	
+	@Query("SELECT new principal.bolsa.dto.AdminDTO(e.nombre, e.direccion, e.telefono, e.correo) FROM Empresa e where e.empresa_id = :id")
+	public AdminDTO obtenerEmpresa(@Param("id") Long id);
 
 
     @Query("SELECT new principal.bolsa.dto.AdminDTO(e.nombre, e.direccion, e.telefono, e.correo) FROM Empresa e where e.empresa_id = :id")
