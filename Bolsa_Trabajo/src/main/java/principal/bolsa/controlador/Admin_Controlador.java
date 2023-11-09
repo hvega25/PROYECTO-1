@@ -8,7 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,48 +34,76 @@ public class Admin_Controlador {
 		return empresaRepositorio.findAll();
 	}
 
-
-	//Método que obtiene por id de una empresa las ofertas
-	@GetMapping("empresaID/{id}/ofertas")
-
+	// Método que obtiene por id de una empresa las ofertas
+	@GetMapping("/empresaID/{id}/ofertas")
 	public List<Oferta> getOfertasByEmpresaId(@PathVariable Long id) {
 		Empresa empresa = empresaRepositorio.findById(id).orElseThrow();
 		return empresa.getOfertas();
 	}
 
+	// Método para actualizar una oferta
+	@PutMapping("/actualizarOferta/empresaID/{empresaId}/ofertaID/{ofertaId}")
+	public Oferta editarOferta(@PathVariable Long empresaId, @PathVariable Long ofertaId,
+			@RequestBody Oferta ofertaActualizada) {
+		Empresa empresa = empresaRepositorio.findById(empresaId).orElse(null);
+		if (empresa == null) {
+			return null;
+		}
+
+		Oferta oferta = ofertaRepositorio.findById(ofertaId).orElse(null);
+		if (oferta == null) {
+			return null;
+		}
+
+		if (ofertaActualizada.getNombre() != null) {
+			oferta.setNombre(ofertaActualizada.getNombre());
+		}
+		if (ofertaActualizada.getDescripcion() != null) {
+			oferta.setDescripcion(ofertaActualizada.getDescripcion());
+		}
+		if (ofertaActualizada.getFecha() != null) {
+			oferta.setFecha(ofertaActualizada.getFecha());
+		}
+		if (ofertaActualizada.getHorario() != null) {
+			oferta.setHorario(ofertaActualizada.getHorario());
+		}
+		if (ofertaActualizada.getJornada() != null) {
+			oferta.setJornada(ofertaActualizada.getJornada());
+		}
+		if (ofertaActualizada.getPuesto() != null) {
+			oferta.setPuesto(ofertaActualizada.getPuesto());
+		}
+
+		ofertaRepositorio.save(oferta);
+
+		return oferta;
+	}
+
 	// Metodo para eliminar las ofertas asociadas a una empresa
-	@DeleteMapping("elminar/empresaID/{empresaId}/ofertaID/{ofertaId}")
+	@DeleteMapping("/elminar/empresaID/{empresaId}/ofertaID/{ofertaId}")
 	public ResponseEntity<String> eliminarOferta(@PathVariable Long empresaId, @PathVariable Long ofertaId) {
-	    Empresa empresa = empresaRepositorio.findById(empresaId).orElse(null);
-	    if (empresa == null) {
-	        // Manejar el caso en que la empresa no se encuentra
-	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Empresa no encontrada");
-	    }
+		Empresa empresa = empresaRepositorio.findById(empresaId).orElse(null);
+		if (empresa == null) {
+			// Manejar el caso en que la empresa no se encuentra
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Empresa no encontrada");
+		}
 
-	    Oferta oferta = ofertaRepositorio.findById(ofertaId).orElse(null);
-	    if (oferta == null) {
-	        // Manejar el caso en que la oferta no se encuentra
-	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Oferta no encontrada");
-	    }
+		Oferta oferta = ofertaRepositorio.findById(ofertaId).orElse(null);
+		if (oferta == null) {
+			// Manejar el caso en que la oferta no se encuentra
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Oferta no encontrada");
+		}
 
-	    // Eliminar la oferta de la lista de ofertas de la empresa
-	    empresa.getOfertas().remove(oferta);
-	    oferta.setEmpresa(null);
+		// Eliminar la oferta de la lista de ofertas de la empresa
+		empresa.getOfertas().remove(oferta);
+		oferta.setEmpresa(null);
 
-	    // Guardar la empresa y la oferta con las listas actualizadas
-	    empresaRepositorio.save(empresa);
-	    ofertaRepositorio.save(oferta);
+		// Guardar la empresa y la oferta con las listas actualizadas
+		empresaRepositorio.save(empresa);
+		ofertaRepositorio.save(oferta);
 
-	    return ResponseEntity.ok("Oferta eliminada correctamente de la empresa");
+		return ResponseEntity.ok("Oferta eliminada correctamente de la empresa");
 
 	}
-	
-
-
-
-
-
-
-
 
 }
