@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -35,24 +36,44 @@ public class Admin_Controlador {
 	}
 
 	//Método que obtiene por id de una empresa las ofertas
-	@GetMapping("/{id}/ofertas")
+	@GetMapping("empresaID/{id}/ofertas")
 	public List<Oferta> getOfertasByEmpresaId(@PathVariable Long id) {
 		Empresa empresa = empresaRepositorio.findById(id).orElseThrow();
 		return empresa.getOfertas();
 	}
 
 	// Metodo para eliminar las ofertas asociadas a una empresa
-	@DeleteMapping("/eliminar/{ofertaId}")
-	public ResponseEntity<?> eliminarOfertaPorId(@PathVariable Long ofertaId) {
-		// Buscar la oferta por su ID
-		Optional<Oferta> oferta = ofertaRepositorio.findById(ofertaId);
+	@DeleteMapping("elminar/empresaID/{empresaId}/ofertaID/{ofertaId}")
+	public ResponseEntity<String> eliminarOferta(@PathVariable Long empresaId, @PathVariable Long ofertaId) {
+	    Empresa empresa = empresaRepositorio.findById(empresaId).orElse(null);
+	    if (empresa == null) {
+	        // Manejar el caso en que la empresa no se encuentra
+	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Empresa no encontrada");
+	    }
 
-		if (oferta.isPresent()) {
-			ofertaRepositorio.deleteById(ofertaId);
-			return ResponseEntity.ok("Oferta eliminada correctamente");
-		} else {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Oferta no encontrada");
-		}
+	    Oferta oferta = ofertaRepositorio.findById(ofertaId).orElse(null);
+	    if (oferta == null) {
+	        // Manejar el caso en que la oferta no se encuentra
+	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Oferta no encontrada");
+	    }
+
+	    // Eliminar la oferta de la lista de ofertas de la empresa
+	    empresa.getOfertas().remove(oferta);
+
+	    // Establecer la empresa de la oferta a null
+	    oferta.setEmpresa(null);
+
+	    // Guardar la empresa y la oferta con las listas actualizadas
+	    empresaRepositorio.save(empresa);
+	    ofertaRepositorio.save(oferta);
+
+	    return ResponseEntity.ok("Oferta eliminada correctamente de la empresa");
 	}
+
+
+
+
+
+
 
 }

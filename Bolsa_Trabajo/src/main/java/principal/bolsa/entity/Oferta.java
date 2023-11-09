@@ -28,6 +28,7 @@ public class Oferta {
 	@ManyToOne
     @JoinColumn(name = "empresa_id")
     private Empresa empresa;
+	
 	//constructores
 	public Oferta() {
 		
@@ -102,6 +103,11 @@ public class Oferta {
 	public void setFecha(String fecha) {
 		this.fecha = fecha;
 	}
+	
+	public void setEmpresa(Empresa empresa) {
+	    this.empresa = empresa;
+	}
+
  
 	@Override
 	public String toString() {

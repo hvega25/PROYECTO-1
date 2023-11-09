@@ -96,9 +96,8 @@ public class Empresa {
 				+ telefono + ", correo=" + correo + "]";
 	}
 
-	public void setOfertas(ArrayList arrayList) {
-		// TODO Auto-generated method stub
-
+	public void setOfertas(List<Oferta> ofertas) {
+	    this.ofertas = ofertas;
 	}
 
 }

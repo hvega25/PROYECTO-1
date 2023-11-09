@@ -23,18 +23,16 @@ public class Empresa_controlador {
 
 	@Autowired
 	private EmpresaRepository empresaRepositorio;
-
-
 	
-
 
 	/* MÉTODOS CRUD PARA EMPRESA */
 
 	// Método para recuperar los datos de una empresa con su id
-	@GetMapping("/consultarEmpresa/{id}")
-	Empresa consulta(@PathVariable Long id) {
-		return empresaRepositorio.findById(id).orElseThrow();
-	}
+	// Método para recuperar los datos de una empresa con su id
+    @GetMapping("/consultarEmpresa/{id}")
+    AdminDTO consulta(@PathVariable Long id) {
+        return empresaRepositorio.obtenerEmpresa(id);
+    }
 
 	// Método que consulta todas las empresas que existen
 	@GetMapping("/consultarTodoSinOfertas")
