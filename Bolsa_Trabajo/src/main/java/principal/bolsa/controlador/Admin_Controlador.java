@@ -1,13 +1,17 @@
 package principal.bolsa.controlador;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,6 +43,39 @@ public class Admin_Controlador {
 	public List<Oferta> getOfertasByEmpresaId(@PathVariable Long id) {
 		Empresa empresa = empresaRepositorio.findById(id).orElseThrow();
 		return empresa.getOfertas();
+	}
+
+	// Método que agrega una oferta a una empresa concreta
+	@PostMapping("/empresaID/{idempresa}/crearOferta")
+	public ResponseEntity<?> crearOfertaParaEmpresa(@PathVariable Long idempresa,
+	@RequestBody Oferta nuevaOferta) {
+	try {
+	Optional<Empresa> empresaOptional = empresaRepositorio.findById(idempresa);
+	if (!empresaOptional.isPresent()) {
+	return ResponseEntity.status(HttpStatus.NOT_FOUND).body("La empresa a la que quieres agregar la oferta no existe: ");
+	}
+
+	Empresa empresa = empresaOptional.get();
+
+	if (nuevaOferta.getNombre() == null || nuevaOferta.getDescripcion() == null
+	|| nuevaOferta.getHorario() == null ||
+	nuevaOferta.getPuesto() == null || nuevaOferta.getJornada() == null
+	|| nuevaOferta.getFecha() == null) {
+	return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+	.body("No se admiten campos con valor nulo en la oferta");
+	}
+
+	nuevaOferta.setEmpresa(empresa);
+	Oferta ofertaCreada = ofertaRepositorio.save(nuevaOferta);
+
+	empresa.getOfertas().add(ofertaCreada);
+	empresaRepositorio.save(empresa);
+
+	return ResponseEntity.status(HttpStatus.CREATED).body(ofertaCreada);
+	} catch (Exception e) {
+	return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+	.body("Ocurrió un error al procesar la solicitud");
+	}
 	}
 
 	// Método para actualizar una oferta
