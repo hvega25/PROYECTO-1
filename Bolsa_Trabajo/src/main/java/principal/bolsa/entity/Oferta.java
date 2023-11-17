@@ -1,5 +1,7 @@
 package principal.bolsa.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -27,6 +29,7 @@ public class Oferta {
     //Relacion many to one	
 	@ManyToOne
     @JoinColumn(name = "empresa_id")
+	@JsonIgnore
     private Empresa empresa;
 	
 	//constructores
