@@ -18,4 +18,10 @@ public interface EmpresaRepository extends JpaRepository<Empresa, Long> {
 	public AdminDTO obtenerEmpresa(@Param("id") Long id);
 
 
+	//Otras querys de busqueda
+	List <Empresa> findEmpresaByNombre (String name);
+
+    //Por rango es prueba
+	//public List<AdminDTO> findbyTotalBeetween (Double min, Double max);
+
 }
