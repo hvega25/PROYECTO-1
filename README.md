@@ -16,7 +16,7 @@ Si tienes docker desktop ya te va a aparecer el contenedor y solo con darle clic
 
 Ubuntu
 Desde la carpeta donde tienes el contenedor ejecuta el siguiente comando 
-docker run nombre_de_la_imagen:tag
+sudo docker run -p 8090:8090 bolsa
 
 Para verlo en el navegador tendras que usar el siguiente url
 0.0.0.0:8090/admin/consultarTodo
