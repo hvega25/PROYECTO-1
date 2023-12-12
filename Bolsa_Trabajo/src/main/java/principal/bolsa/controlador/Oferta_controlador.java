@@ -23,8 +23,12 @@ import principal.bolsa.repository.OfertaRepository;
 @RequestMapping("/oferta")
 public class Oferta_controlador { 
 	
-	@Autowired   
 	private OfertaRepository ofertaRepositorio ; 
+	
+	@Autowired   
+	public Oferta_controlador(OfertaRepository ofertaRepositorio) {
+		this.ofertaRepositorio = ofertaRepositorio;
+	}
 	
 	@GetMapping("/consultar")
     public List<Oferta> getAllOfertas() {
