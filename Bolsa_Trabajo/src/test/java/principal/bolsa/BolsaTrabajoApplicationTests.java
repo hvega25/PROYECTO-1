@@ -48,8 +48,6 @@ class BolsaTrabajoApplicationTests {
 		//assertEquals( 1L, empresas.get(0).getId());
 
 
-
-
 	}
 
 	//Para el uso del sql

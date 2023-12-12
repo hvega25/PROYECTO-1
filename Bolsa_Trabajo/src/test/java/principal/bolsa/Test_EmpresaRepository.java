@@ -23,7 +23,9 @@ class Test_EmpresaRepository {
         
         List<AdminDTO> empresas = empresaRepository.ObtenerEmpresa();
         
+        //Verificar si no hay datos nulos en empresa
         assertNotNull(empresas);
+        //Si hay mas de una
         assertTrue(empresas.size() > 0);
         
         //Comprobar la empresa 1
