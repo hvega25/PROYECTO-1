@@ -17,46 +17,51 @@ import java.util.List;
 @DataJpaTest //esto es para un controlador en especifico
 class BolsaTrabajoApplicationTests {
 
-	@Autowired
-	private TestEntityManager entityManager;
+    @Autowired
+    private TestEntityManager entityManager;
 
-	@Autowired
-	private EmpresaRepository empresaRepositorio;
+    @Autowired
+    private EmpresaRepository empresaRepositorio;
 
 
-	//prueba de Persistencia
+    //prueba de Persistencia
 
-	private Empresa insertarEmpresa(Empresa empresa){
+    private Empresa insertarEmpresa(Empresa empresa) {
 
-		//entityManager.persist(empresa);
-		entityManager.merge(empresa);
-		entityManager.flush();
-		return empresa;
+        //entityManager.persist(empresa);
+        entityManager.merge(empresa);
+        entityManager.flush();
+        return empresa;
+    }
+
+    //Para comprobar persistencia
+    @Test
+    void gifindAllByName() {
+        Empresa em = new Empresa(56, "nombre1", "direccion2", "telefono1", "correo2");
+        Empresa em2 = new Empresa(64, "nombre16", "direccion2", "telefono1", "correo2");
+
+        em = insertarEmpresa(em);
+        em2 = insertarEmpresa(em2);
+
+        List<Empresa> empresas = empresaRepositorio.findEmpresaByNombre("nombre1");
+        assertEquals(1, empresas.size());
+        //assertEquals( 1L, empresas.get(0).getId());
+
+
+<<<<<<< Updated upstream
 	}
+=======
+    }
 
-//Para comprobar persistencia
-	@Test
-	void gifindAllByName() {
-		Empresa em = new Empresa( 56 , "nombre1", "direccion2" , "telefono1", "correo2");
-		Empresa em2 = new Empresa( 64 , "nombre16", "direccion2" , "telefono1", "correo2");
+    /*//Para el uso del sql
+    @Test
+    @Sql("empresas.sql")
+    void findAllwithSQL() {
+        List<Empresa> em = empresaRepositorio.findAll();
+        assertEquals(4, em.size());
 
-		em = insertarEmpresa(em);
-		em2 = insertarEmpresa(em2);
+    }*/
+>>>>>>> Stashed changes
 
-		List<Empresa> empresas = empresaRepositorio.findEmpresaByNombre("nombre1");
-		assertEquals(1, empresas.size());
-		//assertEquals( 1L, empresas.get(0).getId());
-
-
-	}
-
-	//Para el uso del sql
-	@Test
-	@Sql("empresas.sql")
-	void findAllwithSQL() {
-		List<Empresa> em = empresaRepositorio.findAll();
-		assertEquals(6 , em.size());
-
-	}
 
 }

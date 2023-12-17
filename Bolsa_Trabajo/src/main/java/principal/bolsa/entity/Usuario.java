@@ -1,36 +1,38 @@
 package principal.bolsa.entity;
 
-import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
-@Entity
-public class usuario {
+public class Usuario {
+
 
 	@Id                  //jakarta.persistence.Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
-	
+
 	private String nombre;
 	private String apellido;
 	private int edad;
 	private String correo;
 	private String password;
-	
-	public usuario() {
-	
+	private String rol;
+
+
+
+	public Usuario() {
+
 	}
-	
-	public usuario(long id, String nombre, String apellido, int edad, String correo, String password) {
-		super();
+
+	public Usuario(long id, String nombre, String apellido, int edad, String correo, String password, String rol) {
 		this.id = id;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.edad = edad;
 		this.correo = correo;
 		this.password = password;
+		this.rol = rol;
 	}
 
 	public long getId() {
@@ -81,13 +83,24 @@ public class usuario {
 		this.password = password;
 	}
 
+	public String getRol() {
+		return rol;
+	}
+
+	public void setRol(String rol) {
+		this.rol = rol;
+	}
+
 	@Override
 	public String toString() {
-		return "usuario [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", edad=" + edad + ", correo="
-				+ correo + ", password=" + password + "]";
+		return "usuario{" +
+				"id=" + id +
+				", nombre='" + nombre + '\'' +
+				", apellido='" + apellido + '\'' +
+				", edad=" + edad +
+				", correo='" + correo + '\'' +
+				", password='" + password + '\'' +
+				", rol='" + rol + '\'' +
+				'}';
 	}
-	
-	
-	
-	
 }
