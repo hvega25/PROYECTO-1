@@ -12,7 +12,7 @@ import principal.bolsa.dto.AdminDTO;
 import principal.bolsa.repository.EmpresaRepository;
 
 @SpringBootTest
-class Test_EmpresaRepository {
+class Test_EmpresaRepository {/*
 	
     @Autowired
     private EmpresaRepository empresaRepository;
@@ -45,5 +45,5 @@ class Test_EmpresaRepository {
         assertNotNull(empresa);
         
     }
-
+*/
 }

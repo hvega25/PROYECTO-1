@@ -13,10 +13,11 @@ import java.util.List;
 @RequestMapping("/usuario")
 public class Usuario_controlador {
 
-	@Autowired
-	private UsuarioRepositorio usuarioRepository;
-	@GetMapping("/consultar")
-	public List<Usuario> getAllUsuarios() {
-		return usuarioRepository.findAll();
-	}
+    @Autowired
+    private UsuarioRepositorio usuariorepository;
+
+    @GetMapping("/consultar")
+    public List<Usuario> getAllUsuarios() {
+        return usuariorepository.findAll();
+    }
 }
