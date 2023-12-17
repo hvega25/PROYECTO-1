@@ -17,6 +17,7 @@ import java.util.List;
 @DataJpaTest //esto es para un controlador en especifico
 class BolsaTrabajoApplicationTests {
 
+    /*
     @Autowired
     private TestEntityManager entityManager;
 
@@ -48,20 +49,18 @@ class BolsaTrabajoApplicationTests {
         //assertEquals( 1L, empresas.get(0).getId());
 
 
-<<<<<<< Updated upstream
-	}
-=======
-    }
-
-    /*//Para el uso del sql
+    //Para el uso del sql
     @Test
     @Sql("empresas.sql")
     void findAllwithSQL() {
         List<Empresa> em = empresaRepositorio.findAll();
         assertEquals(4, em.size());
 
-    }*/
->>>>>>> Stashed changes
+    }
 
 
+    }
+
+
+     */
 }
