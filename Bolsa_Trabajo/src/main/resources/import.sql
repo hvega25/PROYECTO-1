@@ -17,4 +17,3 @@ INSERT INTO oferta (nombre, descripcion, horario, puesto, jornada, fecha, empres
 
 
 -- Datos de usuarios
-INSERT INTO usuario (edad, apellido, correo, nombre, password, rol ) VALUES (25, 'la rata', 'espinoza.larata@example.com', 'espinoza', 'claveSegura123', 'admin');

@@ -1,18 +1,20 @@
 package principal.bolsa.dto;
 
 
-public class AdminDTO {
+//Creamos este DTO como un auxiliar en la query de empresa para solo obtener las empresas sin las ofertas
+//Ya que el jsonignore no mostraba lo que deseabamos
+public class EmpresaDTO {
 
 	private String nombre;
 	private String direccion;
 	private String telefono;
 	private String correo;
 	
-	public AdminDTO() {
+	public EmpresaDTO() {
 		
 	}
 	
-	public AdminDTO(String nombre, String direccion, String telefono, String correo) {
+	public EmpresaDTO(String nombre, String direccion, String telefono, String correo) {
 		super();
 		this.nombre = nombre;
 		this.direccion = direccion;

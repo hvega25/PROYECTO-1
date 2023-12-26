@@ -2,6 +2,7 @@ package principal.bolsa.controlador;
 
 import java.util.List;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,12 +14,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import principal.bolsa.dto.AdminDTO;
+import principal.bolsa.dto.EmpresaDTO;
 import principal.bolsa.entity.Empresa;
 import principal.bolsa.repository.EmpresaRepository;
 
 @RestController
 @RequestMapping("/empresa")
+@Tag(name = "empresa", description = "CRUD de empresa que retorna solo las empresas sin ofertas")
 public class Empresa_controlador {
 
 	@Autowired
@@ -30,13 +32,13 @@ public class Empresa_controlador {
 	// Método para recuperar los datos de una empresa con su id
 
 	@GetMapping("/consultarEmpresa/{id}")
-	AdminDTO consulta(@PathVariable Long id) {
+	EmpresaDTO consulta(@PathVariable Long id) {
 		return empresaRepositorio.obtenerEmpresa(id);
 	}
 
 	// Método que consulta todas las empresas que existen
 	@GetMapping("/consultarTodoSinOfertas")
-	public List<AdminDTO> getAllEmpresasWithoutOfertas() {
+	public List<EmpresaDTO> getAllEmpresasWithoutOfertas() {
         return empresaRepositorio.ObtenerEmpresa(); 
     }
 
