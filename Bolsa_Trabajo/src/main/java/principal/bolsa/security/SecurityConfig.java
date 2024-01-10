@@ -1,7 +1,6 @@
 package principal.bolsa.security;
 
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,6 +28,8 @@ import org.springframework.security.web.SecurityFilterChain;
 
 import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher;
 
+
+/*El securityconfig es quien permite el acceso a las rutas de la API*/
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -48,18 +49,20 @@ public class SecurityConfig {
 
     }
 
-       @Bean
+    @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> {
                     authorize.requestMatchers(antMatcher("/swagger-ui/**"),
                                     antMatcher("/swagger-ui.html"),
                                     antMatcher("/v3/**"),
-                                    antMatcher("/h2-console/**")).permitAll()
-                            //.requestMatchers(antMatcher(HttpMethod.GET, "/books")).permitAll()
-                            // .requestMatchers(antMatcher(HttpMethod.GET, "/books/**")).permitAll()
-                            //.requestMatchers(antMatcher(HttpMethod.POST, "/persons")).hasRole(UserRole.ADMIN.name())
-                            .anyRequest().authenticated();
+                                    antMatcher("/h2-console/**"),
+                                    antMatcher("/auth/**")).permitAll()
+                            .requestMatchers(antMatcher(HttpMethod.GET, "/empresa/consultarTodoSinOfertas")).permitAll()
+                            .requestMatchers(antMatcher(HttpMethod.GET, "/empresa/consultarEmpresa/{id}")).permitAll()
+                            .requestMatchers(antMatcher(HttpMethod.GET, "/empresas/consultarTodo")).permitAll()
+                            .requestMatchers(antMatcher(HttpMethod.GET, "/empresas/empresaID/{id}/ofertas")).permitAll()
+                            .requestMatchers(antMatcher(HttpMethod.GET, "/oferta/consultar")).permitAll();
                 })
                 .headers(h -> h.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin)) // This so embedded frames in h2-console are working
                 .httpBasic(Customizer.withDefaults())

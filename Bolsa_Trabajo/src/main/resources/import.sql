@@ -17,3 +17,5 @@ INSERT INTO oferta (nombre, descripcion, horario, puesto, jornada, fecha, empres
 
 
 -- Datos de usuarios
+INSERT INTO USUARIO ( EMAIL , PASSWORD , USERNAME ) VALUES ('correo1@correo1.com', '1234', 'Gerardo')
+INSERT INTO USUARIO_AUTHORITIES VALUES (1, 'READ');

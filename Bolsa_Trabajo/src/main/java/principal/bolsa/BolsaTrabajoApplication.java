@@ -7,7 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @SpringBootApplication
-@RequestMapping("/api")
+//@RequestMapping("/api")
 public class BolsaTrabajoApplication {
 
 	public static void main(String[] args) {
