@@ -5,10 +5,10 @@ Proyecto 1
 Puedes hacer pruebas con el proyecto si tienes docker
 
 windows
-docker pull 2023hersonvega922/bolsa:1.1
+docker pull 2023hersonvega922/bolsa:latest
 
 linux
-sudo docker pull 2023hersonvega922/bolsa:1.1
+sudo docker pull 2023hersonvega922/bolsa:latest
 
 Para ejecutarlo
 
